@@ -1,0 +1,38 @@
+# This block is managed by the Herdr-Vibe installer.
+# It reports Vibe's lifecycle to Herdr: idle / working / blocked / release.
+# Do not hand-edit between the markers; reinstall instead.
+
+[[hooks]]
+name = "herdr-vibe-start"
+type = "session_start"
+command = "@PYTHON@ ~/.vibe/hooks/herdr.py start"
+timeout = 5
+description = "Report Vibe start (idle + resume args) to Herdr"
+
+[[hooks]]
+name = "herdr-vibe-working"
+type = "pre_agent"
+command = "@PYTHON@ ~/.vibe/hooks/herdr.py working"
+timeout = 5
+description = "Report Vibe working state to Herdr"
+
+[[hooks]]
+name = "herdr-vibe-tool-ran"
+type = "post_tool"
+command = "@PYTHON@ ~/.vibe/hooks/herdr.py working"
+timeout = 5
+description = "Keep Vibe working state reported to Herdr between tools"
+
+[[hooks]]
+name = "herdr-vibe-notify"
+type = "notification"
+command = "@PYTHON@ ~/.vibe/hooks/herdr.py notify"
+timeout = 5
+description = "Report Vibe blocked (approval/question) and idle (turn end) to Herdr"
+
+[[hooks]]
+name = "herdr-vibe-end"
+type = "session_end"
+command = "@PYTHON@ ~/.vibe/hooks/herdr.py end"
+timeout = 5
+description = "Release the Herdr pane when Vibe exits"
